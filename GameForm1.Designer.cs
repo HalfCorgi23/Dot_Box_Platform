@@ -116,6 +116,7 @@
             this.h_0_0 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.游戏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.重新开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出游戏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.引擎选择ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.引擎选择ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,7 +147,6 @@
             this.label_player_sc = new System.Windows.Forms.Label();
             this.label_computer_sc = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.重新开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer_pla = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -1178,10 +1178,17 @@
             this.游戏ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.游戏ToolStripMenuItem.Text = "游戏";
             // 
+            // 重新开始ToolStripMenuItem
+            // 
+            this.重新开始ToolStripMenuItem.Name = "重新开始ToolStripMenuItem";
+            this.重新开始ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.重新开始ToolStripMenuItem.Text = "重新开始";
+            this.重新开始ToolStripMenuItem.Click += new System.EventHandler(this.重新开始ToolStripMenuItem_Click);
+            // 
             // 退出游戏ToolStripMenuItem
             // 
             this.退出游戏ToolStripMenuItem.Name = "退出游戏ToolStripMenuItem";
-            this.退出游戏ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出游戏ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.退出游戏ToolStripMenuItem.Text = "退出游戏";
             this.退出游戏ToolStripMenuItem.Click += new System.EventHandler(this.label14_Click);
             // 
@@ -1252,6 +1259,7 @@
             // 
             // button_undo
             // 
+            this.button_undo.Enabled = false;
             this.button_undo.Location = new System.Drawing.Point(761, 337);
             this.button_undo.Name = "button_undo";
             this.button_undo.Size = new System.Drawing.Size(93, 66);
@@ -1262,6 +1270,7 @@
             // 
             // button_load
             // 
+            this.button_load.Enabled = false;
             this.button_load.Location = new System.Drawing.Point(599, 337);
             this.button_load.Name = "button_load";
             this.button_load.Size = new System.Drawing.Size(93, 66);
@@ -1443,13 +1452,6 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(0, 27);
             this.label13.TabIndex = 197;
-            // 
-            // 重新开始ToolStripMenuItem
-            // 
-            this.重新开始ToolStripMenuItem.Name = "重新开始ToolStripMenuItem";
-            this.重新开始ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.重新开始ToolStripMenuItem.Text = "重新开始";
-            this.重新开始ToolStripMenuItem.Click += new System.EventHandler(this.重新开始ToolStripMenuItem_Click);
             // 
             // timer_pla
             // 
