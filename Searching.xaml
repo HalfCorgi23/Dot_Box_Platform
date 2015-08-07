@@ -1,0 +1,13 @@
+﻿<Window x:Class="Dot_Box_Platform.Searching"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dot_Box_Platform"
+        mc:Ignorable="d"
+        Title="Searching" Height="67.785" Width="185.234" WindowStyle="None">
+    <Grid>
+        <Label x:Name="label" Content="正在计算……" HorizontalAlignment="Left" Margin="49,18,0,0" VerticalAlignment="Top" Height="26" Width="88"/>
+
+    </Grid>
+</Window>
