@@ -351,7 +351,7 @@ namespace Dot_Box_Platform
                         }
                     }
                 }
-                while (stepnum % 2 == 0);
+                while (stepnum % 2 == 1);
                 //int[,] situation2 = situation;
                 for (i = 0; i < 6; i++)
                 {
@@ -1179,6 +1179,10 @@ namespace Dot_Box_Platform
             }
             int[,] rtn = new int[20, 2];
             return rtn;
+        }
+        public void stat_analy()
+        {
+            
         }
 
     }

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Dot_Box_Platform
 {
@@ -97,7 +98,8 @@ namespace Dot_Box_Platform
         }
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            label5.Content = "dasdasdasd";
+            //label4.Content = listBox_Copy.Items[listBox_Copy.Items.Count - 1].ToString();
+            re_click();
         }
         public void drawline()
         {
@@ -312,11 +314,11 @@ namespace Dot_Box_Platform
         {
             using (StreamWriter sw = File.CreateText(datefile))
             {
-                sw.WriteLine(date);
-                sw.WriteLine("-----------------------------------------------");
-                for (int i = 0; i < this.listBox.Items.Count; i++)
+                //sw.WriteLine(date);
+                //sw.WriteLine("-----------------------------------------------");
+                for (int i = 0; i < this.listBox_Copy.Items.Count; i++)
                 {
-                    sw.WriteLine(this.listBox.Items[i]);
+                    sw.WriteLine(this.listBox_Copy.Items[i]);
                 }
             }
         }
@@ -345,6 +347,33 @@ namespace Dot_Box_Platform
             x = _x.ToString()+"-";
             y = _y.ToString();
             string rtn = _turn+type + x + y;
+            return rtn;
+        }
+        public string lib_add2(int _type, int _x, int _y)  //listBox_Copy用
+        {
+            string type = null;
+            string x, y;
+            string _turn = null;
+            if (turn == player)
+            {
+                _turn = player.ToString()+"-";
+            }
+            else
+            {
+                _turn = comput.ToString()+"-";
+            }
+            if (_type == horizon)
+            {
+                type = horizon.ToString()+"-";
+            }
+            else
+            {
+                type = vertice.ToString()+"-";
+            }
+
+            x = _x.ToString() + "-";
+            y = _y.ToString();
+            string rtn = _turn + type + x + y;
             return rtn;
         }
         public void occ_line(int _type,int _x,int _y)
@@ -423,6 +452,7 @@ namespace Dot_Box_Platform
                 }
             }
             listBox.Items.Add(lib_add(_type, _x, _y));
+            listBox_Copy.Items.Add(lib_add2(_type, _x, _y));
             filesave();
             if (!occ)
             {
@@ -464,6 +494,188 @@ namespace Dot_Box_Platform
                 label5.Foreground= new SolidColorBrush(Color.FromRgb(0,0,0));
             }
             return true;
+        }
+        public int[] itemtostep(string item)
+        {
+            int[] rtn = new int[4];
+            int i = 0;
+            //string regexStr1 = "(\\d)-(\\d)-()";
+            Regex regex = new Regex(@"\d+", RegexOptions.ECMAScript);
+            Match match = regex.Match(item);
+            while (match.Value.Length != 0)
+            {
+                rtn[i] = int.Parse(match.Value);
+                i++;
+                match = regex.Match(item, match.Index + match.Value.Length);
+            }
+            //rtn[0] = int.Parse(regex.Match(item).Groups[0].Value);
+            //rtn[1] = int.Parse(regex.Match(item).Groups[1].Value);
+            //rtn[2] = int.Parse(regex.Match(item).Groups[2].Value);
+            //rtn[3] = int.Parse(regex.Match(item).Groups[3].Value);
+            return rtn;
+        }
+        public void re_step(int re_turn,int re_type,int re_x,int re_y)
+        {
+            int count= this.listBox_Copy.Items.Count;
+            this.listBox.Items.Remove(this.listBox.Items[count-1]);
+            this.listBox_Copy.Items.Remove(this.listBox_Copy.Items[count - 1]);
+            if (re_type == horizon)
+            {
+                h[re_x, re_y] = none;
+                if(re_x == 0)
+                {
+                    box[re_x, re_y] = none;
+                    box_edge[re_x, re_y]--;
+                    if (box_edge[re_x, re_y] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                }
+                else if (re_x == 5)
+                {
+                    box[re_x - 1, re_y] = none;
+                    box_edge[re_x - 1, re_y]--;
+                    if (box_edge[re_x - 1, re_y] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                }
+                else
+                {
+                    if(box_edge[re_x, re_y]==4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                    if (box_edge[re_x - 1, re_y] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                    box[re_x, re_y] = none;
+                    box_edge[re_x, re_y]--;
+                    box[re_x - 1, re_y] = none;
+                    box_edge[re_x - 1, re_y]--;
+                }
+            }
+            else 
+            {
+                v[re_x, re_y] = none;
+                if (re_y == 0)
+                {
+                    box[re_x, re_y] = none;
+                    box_edge[re_x, re_y]--;
+                    if (box_edge[re_x, re_y] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                }
+                else if (re_y == 5)
+                {
+                    box[re_x, re_y - 1] = none;
+                    box_edge[re_x, re_y - 1]--;
+                    if (box_edge[re_x, re_y - 1] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                }
+                else
+                {
+                    if (box_edge[re_x, re_y] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                    if (box_edge[re_x, re_y - 1] == 4)
+                    {
+                        box_num++;
+                        if (re_turn == player)
+                        {
+                            play_score--;
+                        }
+                        else
+                        {
+                            com_score--;
+                        }
+                    }
+                    box[re_x, re_y] = none;
+                    box_edge[re_x, re_y]--;
+                    box[re_x, re_y - 1] = none;
+                    box_edge[re_x, re_y - 1]--;
+                }
+            }
+        }
+        public void re_click()
+        {
+            int[] step = new int[4];
+            do
+            {  
+                step = itemtostep(listBox_Copy.Items[listBox_Copy.Items.Count-1].ToString());
+                re_step(step[0], step[1], step[2], step[3]);
+                listBox_Copy.Items.Remove(listBox_Copy.Items[listBox_Copy.Items.Count - 1]);
+                listBox.Items.Remove(listBox.Items[listBox.Items.Count - 1]);
+            }
+            while (step[0] == comput);
+            //step = itemtostep(listBox_Copy.Items[listBox_Copy.Items.Count - 1].ToString());
+            //re_step(step[0], step[1], step[2], step[3]);
+            //listBox_Copy.Items.Remove(listBox_Copy.Items[listBox_Copy.Items.Count - 1]);
+            //listBox.Items.Remove(listBox.Items[listBox.Items.Count - 1]);
+            turn = player;
+            filesave();
+            drawline();
         }
     }
 }
