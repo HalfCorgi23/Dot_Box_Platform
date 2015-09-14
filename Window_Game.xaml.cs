@@ -37,19 +37,20 @@ namespace Dot_Box_Platform
         //**************固定字段****************//
         static int player = 1;   //玩家=1
         static int comput = 2;    //电脑=2
+        //static int test_mode = 3;
         static int none = 0;    //无归属=0
         static int horizon = 0;    //横边=0
         static int vertice = 1;     //纵边=1
         static Window search_w;
         static string datefile;
-        string date;
+        //string date;
         //*****************************//
-        public Window_Game(Color _color,int _type)
+        public Window_Game(Color _color, int _type)
         {
             InitializeComponent();
             change_color(_color);
             initialize();
-            drawline();             
+            draw();
             gametype = _type;
             if (gametype == 2)
             {
@@ -62,9 +63,17 @@ namespace Dot_Box_Platform
                 //玩家先手
                 turn = player;
             }
-            
         }
-        public void initialize()
+        public Window_Game(Color _color, int _type,string filename)
+        {
+            InitializeComponent();
+            change_color(_color);
+            initialize();
+            fileload(filename);
+            turn = player;
+            draw();
+        }
+        private void initialize()
         {
             h = new int[6, 5];
             v = new int[5, 6];
@@ -76,16 +85,22 @@ namespace Dot_Box_Platform
             step = 0;
             search_w = new Searching();
             datefile = DateTime.Now.ToFileTime().ToString() + ".sav";
-            date = DateTime.Now.ToString();
+            //date = DateTime.Now.ToString();
+            FileStream fs_cre = new FileStream(datefile, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            Settings1.Default.Current_Save3 = Settings1.Default.Current_Save2;
+            Settings1.Default.Current_Save2 = Settings1.Default.Current_Save1;
+            Settings1.Default.Current_Save1 = datefile;
+            re_list[0] = new state(h, v, box, box_edge, box_num, play_score, com_score, step);
+            fs_cre.Close();
         }
-        public void change_color(Color _color)   //改变颜色
+        private void change_color(Color _color)   //改变颜色
         {
             Border_Left.Background = new SolidColorBrush(_color);
             button2.Background = new SolidColorBrush(_color);
             label2.Background = new SolidColorBrush(_color);
             label1.Background = new SolidColorBrush(_color);
             label1_Copy.Background = new SolidColorBrush(_color);
-            label4.Background = new SolidColorBrush(_color);
+            //label4.Background = new SolidColorBrush(_color);
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
@@ -101,12 +116,12 @@ namespace Dot_Box_Platform
             //label4.Content = listBox_Copy.Items[listBox_Copy.Items.Count - 1].ToString();
             re_click();
         }
-        public void drawline()
+        private void draw()
         {
             Canvas_Game.Children.Clear();
-            for (int j=0;j<6;j++)
+            for (int j = 0; j < 6; j++)
             {
-                for(int i=0;i<5;i++)
+                for (int i = 0; i < 5; i++)
                 {
                     Line line1 = new Line();
                     line1.X1 = 64 * i;
@@ -121,9 +136,9 @@ namespace Dot_Box_Platform
                     {
                         line1.Stroke = Brushes.Blue;
                     }
-                    else if(h[j, i] == none)
+                    else if (h[j, i] == none)
                     {
-                        line1.Stroke = Brushes.Gray;
+                        line1.Stroke = Brushes.Lavender;
                     }
                     Canvas_Game.Children.Add(line1);
                 }
@@ -147,25 +162,43 @@ namespace Dot_Box_Platform
                     }
                     else if (v[j, i] == none)
                     {
-                        line1.Stroke = Brushes.Gray;
+                        line1.Stroke = Brushes.Lavender;
                     }
                     Canvas_Game.Children.Add(line1);
                 }
             }
-            drawbox();
+            for(int i=0;i<5;i++)
+            {
+                for(int j=0;j<5;j++)
+                {
+                    Rectangle box_ = new Rectangle();
+                    Thickness margin = new Thickness(2+64*j, 2 + 64 * i, 0, 0);
+                    box_.Margin= margin;
+                    box_.Height = 60;
+                    box_.Width = 60;
+                    if (box[i, j] == comput)
+                    {
+                        box_.Fill = Brushes.Blue;
+                    }
+                    else if(box[i, j] == player)
+                    {
+                        box_.Fill = Brushes.Red;
+                    }
+                    else
+                    {
+                        box_.Fill = Brushes.White;
+                    }
+                    Canvas_Game.Children.Add(box_);
+                }
+            }
         }
-        public void drawbox()
-        {
-
-        }
-
         private void Canvas_Game_MouseMove(object sender, MouseEventArgs e)
         {
             //int[] array=get_position(e);
             //label1.Content = array[0];
             //label1_Copy.Content = array[1];
         }
-        public int[] get_position(MouseEventArgs e)
+        private int[] get_position(MouseEventArgs e)
         {
             Point p = e.GetPosition(Canvas_Game);
             int a;
@@ -286,7 +319,7 @@ namespace Dot_Box_Platform
                     x = a / 2;
                     y = (b - 1) / 2;
                     type = horizon;
-                    
+
                 }
                 else if (a % 2 == 1)
                 {
@@ -294,89 +327,126 @@ namespace Dot_Box_Platform
                     y = b / 2;
                     type = vertice;
                 }
-                occ_line(type, x, y);
-                step++;
-                drawline();
+                if (type == horizon)
+                {
+                    if (h[x, y] == none)
+                    {
+                        occ_line(type, x, y);
+                        step++;
+                    }
+                }
+                else if (type == vertice)
+                {
+                    if (v[x, y] == none)
+                    {
+                        occ_line(type, x, y);
+                        step++;
+                    }
+                }
+                draw();
             }
         }
-        public void comp_step()
+        private void comp_step()
         {
-            label5.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            //label5.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
             search_w.Show();
-            movestep mst = new movestep(h, v, box_edge, step);
-            int[] move = mst.getmove();
-            occ_line(move[0], move[1], move[2]);
-            label5.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            search_w.Hide();
-            drawline();
-        }
-        public void filesave()
-        {
-            using (StreamWriter sw = File.CreateText(datefile))
+            nextmove nm = new nextmove(h, v, box_edge, step);
+            int[] move = nm.get();
+            if (move[1] == 0 && move[2] == 0 && box_edge[0, 0] >= 2)
             {
-                //sw.WriteLine(date);
-                //sw.WriteLine("-----------------------------------------------");
-                for (int i = 0; i < this.listBox_Copy.Items.Count; i++)
+                MessageBox.Show("chucuo!");
+            }
+            else
+            {
+                occ_line(move[0], move[1], move[2]);
+                //label5.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                listno++;
+                re_list[listno] = new state(h, v, box, box_edge, box_num, play_score, com_score, step);
+                search_w.Hide();
+                draw();
+            }
+        }
+        private void filesave()
+        {
+            FileStream fs_w = new FileStream(datefile, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            StreamWriter sw = new StreamWriter(fs_w);
+            int i, j;
+            for (i = 0; i < 6; i++)
+            {
+                for (j = 0; j < 5; j++)
                 {
-                    sw.WriteLine(this.listBox_Copy.Items[i]);
+                    sw.WriteLine(h[i, j].ToString());
                 }
             }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 6; j++)
+                {
+                    sw.WriteLine(v[i, j].ToString());
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    sw.WriteLine(box[i, j].ToString());
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    sw.WriteLine(box_edge[i, j].ToString());
+                }
+            }
+            sw.WriteLine(box_num.ToString());
+            sw.WriteLine(play_score.ToString());
+            sw.WriteLine(com_score.ToString());
+            sw.WriteLine(step.ToString());
+            sw.Close();
+            fs_w.Close();
         }
-        public string lib_add(int _type, int _x, int _y)
+        private void fileload(string filename)
         {
-            string type=null;
-            string x, y;
-            string _turn = null;
-            if (turn == player)
+            FileStream loadfs = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            StreamReader sr = new StreamReader(loadfs);
+            int i, j;
+            for (i = 0; i < 6; i++)
             {
-                _turn = "玩家-";
+                for (j = 0; j < 5; j++)
+                {
+                    h[i, j] = int.Parse(sr.ReadLine());
+                }
             }
-            else
+            for (i = 0; i < 5; i++)
             {
-                _turn = "电脑-";
+                for (j = 0; j < 6; j++)
+                {
+                    v[i, j] = int.Parse(sr.ReadLine());
+                }
             }
-            if (_type == horizon)
+            for (i = 0; i < 5; i++)
             {
-                type = "横边-";
+                for (j = 0; j < 5; j++)
+                {
+                    box[i, j] = int.Parse(sr.ReadLine());
+                }
             }
-            else
+            for (i = 0; i < 5; i++)
             {
-                type = "纵边-";
+                for (j = 0; j < 5; j++)
+                {
+                    box_edge[i, j] = int.Parse(sr.ReadLine());
+                }
             }
-
-            x = _x.ToString()+"-";
-            y = _y.ToString();
-            string rtn = _turn+type + x + y;
-            return rtn;
+            box_num = int.Parse(sr.ReadLine());
+            play_score = int.Parse(sr.ReadLine());
+            com_score = int.Parse(sr.ReadLine());
+            step = int.Parse(sr.ReadLine());
+            sr.Close();
+            loadfs.Close();
         }
-        public string lib_add2(int _type, int _x, int _y)  //listBox_Copy用
-        {
-            string type = null;
-            string x, y;
-            string _turn = null;
-            if (turn == player)
-            {
-                _turn = player.ToString()+"-";
-            }
-            else
-            {
-                _turn = comput.ToString()+"-";
-            }
-            if (_type == horizon)
-            {
-                type = horizon.ToString()+"-";
-            }
-            else
-            {
-                type = vertice.ToString()+"-";
-            }
-
-            x = _x.ToString() + "-";
-            y = _y.ToString();
-            string rtn = _turn + type + x + y;
-            return rtn;
-        }
-        public void occ_line(int _type,int _x,int _y)
+        private void occ_line(int _type, int _x, int _y)
         {
             bool occ = false;
             if (_type == horizon)
@@ -397,7 +467,7 @@ namespace Dot_Box_Platform
                         box_edge[_x - 1, _y]++;
                         if (box_edge[_x - 1, _y] == 4)
                         {
-                            occ = occ_box( _x-1, _y);
+                            occ = occ_box(_x - 1, _y);
                         }
                     }
                     else
@@ -406,7 +476,7 @@ namespace Dot_Box_Platform
                         box_edge[_x - 1, _y]++;
                         if (box_edge[_x - 1, _y] == 4)
                         {
-                            occ = occ_box( _x - 1, _y);
+                            occ = occ_box(_x - 1, _y);
                         }
                         if (box_edge[_x, _y] == 4)
                         {
@@ -451,8 +521,8 @@ namespace Dot_Box_Platform
                     }
                 }
             }
-            listBox.Items.Add(lib_add(_type, _x, _y));
-            listBox_Copy.Items.Add(lib_add2(_type, _x, _y));
+            //listBox.Items.Add(lib_add(_type, _x, _y));
+            //listBox_Copy.Items.Add(lib_add2(_type, _x, _y));
             filesave();
             if (!occ)
             {
@@ -474,11 +544,11 @@ namespace Dot_Box_Platform
                 }
             }
         }
-        public bool occ_box(int _x, int _y)
+        private bool occ_box(int _x, int _y)
         {
             box[_x, _y] = turn;
             box_num--;
-            if(turn == player)
+            if (turn == player)
             {
                 play_score++;
                 label1.Content = play_score.ToString();
@@ -488,14 +558,14 @@ namespace Dot_Box_Platform
                 com_score++;
                 label1_Copy.Content = com_score.ToString();
             }
-            if(box_num==0)
+            if (box_num == 0)
             {
-                label5.Content = "游戏结束！！";
-                label5.Foreground= new SolidColorBrush(Color.FromRgb(0,0,0));
+                //label5.Content = "游戏结束！！";
+                //label5.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
             }
             return true;
         }
-        public int[] itemtostep(string item)
+        private int[] itemtostep(string item)
         {
             int[] rtn = new int[4];
             int i = 0;
@@ -514,168 +584,101 @@ namespace Dot_Box_Platform
             //rtn[3] = int.Parse(regex.Match(item).Groups[3].Value);
             return rtn;
         }
-        public void re_step(int re_turn,int re_type,int re_x,int re_y)
+        private void re_step()
         {
-            int count= this.listBox_Copy.Items.Count;
-            this.listBox.Items.Remove(this.listBox.Items[count-1]);
-            this.listBox_Copy.Items.Remove(this.listBox_Copy.Items[count - 1]);
-            if (re_type == horizon)
-            {
-                h[re_x, re_y] = none;
-                if(re_x == 0)
-                {
-                    box[re_x, re_y] = none;
-                    box_edge[re_x, re_y]--;
-                    if (box_edge[re_x, re_y] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                }
-                else if (re_x == 5)
-                {
-                    box[re_x - 1, re_y] = none;
-                    box_edge[re_x - 1, re_y]--;
-                    if (box_edge[re_x - 1, re_y] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                }
-                else
-                {
-                    if(box_edge[re_x, re_y]==4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                    if (box_edge[re_x - 1, re_y] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                    box[re_x, re_y] = none;
-                    box_edge[re_x, re_y]--;
-                    box[re_x - 1, re_y] = none;
-                    box_edge[re_x - 1, re_y]--;
-                }
-            }
-            else 
-            {
-                v[re_x, re_y] = none;
-                if (re_y == 0)
-                {
-                    box[re_x, re_y] = none;
-                    box_edge[re_x, re_y]--;
-                    if (box_edge[re_x, re_y] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                }
-                else if (re_y == 5)
-                {
-                    box[re_x, re_y - 1] = none;
-                    box_edge[re_x, re_y - 1]--;
-                    if (box_edge[re_x, re_y - 1] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                }
-                else
-                {
-                    if (box_edge[re_x, re_y] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                    if (box_edge[re_x, re_y - 1] == 4)
-                    {
-                        box_num++;
-                        if (re_turn == player)
-                        {
-                            play_score--;
-                        }
-                        else
-                        {
-                            com_score--;
-                        }
-                    }
-                    box[re_x, re_y] = none;
-                    box_edge[re_x, re_y]--;
-                    box[re_x, re_y - 1] = none;
-                    box_edge[re_x, re_y - 1]--;
-                }
-            }
+            re_list[listno - 1].restep(h, v, box, box_edge, box_num, play_score, com_score, step);
+            listno--;
         }
-        public void re_click()
+        private void re_click()
         {
-            int[] step = new int[4];
-            do
-            {  
-                step = itemtostep(listBox_Copy.Items[listBox_Copy.Items.Count-1].ToString());
-                re_step(step[0], step[1], step[2], step[3]);
-                listBox_Copy.Items.Remove(listBox_Copy.Items[listBox_Copy.Items.Count - 1]);
-                listBox.Items.Remove(listBox.Items[listBox.Items.Count - 1]);
-            }
-            while (step[0] == comput);
-            //step = itemtostep(listBox_Copy.Items[listBox_Copy.Items.Count - 1].ToString());
-            //re_step(step[0], step[1], step[2], step[3]);
-            //listBox_Copy.Items.Remove(listBox_Copy.Items[listBox_Copy.Items.Count - 1]);
-            //listBox.Items.Remove(listBox.Items[listBox.Items.Count - 1]);
-            turn = player;
+            re_step();
             filesave();
-            drawline();
+            draw();
+        }
+        private static state[] re_list = new state[600];
+        private static int listno = 0;
+    }
+    class state
+    {
+        int[,] h=new int[6,5];
+        int[,] v=new int[5,6];
+        int[,] box=new int[5,5];
+        int[,] box_edge = new int[5, 5];
+        int box_num;
+        int play_score;
+        int com_score;
+        int step;
+        public state(int[,] _h,int[,] _v,int[,] _box,int[,] _boxedge,int boxnum,int players,int coms,int _step)
+        {
+            int i, j;
+            for (i=0;i<6;i++)
+            {
+                for(j=0;j<5; j++)
+                {
+                    h[i,j] = _h[i, j];
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 6; j++)
+                {
+                    v[i,j] = _v[i,j];
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    box[i, j] = _box[i, j];
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    box_edge[i, j] = _boxedge[i, j];
+                }
+            }
+            box_num=boxnum;
+            play_score=players;
+            com_score=coms;
+            step=_step;
+        }
+        public void restep(int[,] _h, int[,] _v, int[,] _box, int[,] _boxedge, int boxnum, int players, int coms, int _step)
+        {
+            int i, j;
+            for (i = 0; i < 6; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    _h[i, j] = h[i, j];
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 6; j++)
+                {
+                    _v[i, j] = v[i, j];
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    _box[i, j] = box[i, j];
+                }
+            }
+            for (i = 0; i < 5; i++)
+            {
+                for (j = 0; j < 5; j++)
+                {
+                    _boxedge[i,j] = box_edge[i,j];
+                }
+            }
+            boxnum = box_num;
+            players = play_score;
+            coms = com_score;
+            _step = step;
         }
     }
 }

@@ -34,5 +34,41 @@ namespace Dot_Box_Platform {
                 this["UI_Color"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-")]
+        public string Current_Save1 {
+            get {
+                return ((string)(this["Current_Save1"]));
+            }
+            set {
+                this["Current_Save1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-")]
+        public string Current_Save2 {
+            get {
+                return ((string)(this["Current_Save2"]));
+            }
+            set {
+                this["Current_Save2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-")]
+        public string Current_Save3 {
+            get {
+                return ((string)(this["Current_Save3"]));
+            }
+            set {
+                this["Current_Save3"] = value;
+            }
+        }
     }
 }

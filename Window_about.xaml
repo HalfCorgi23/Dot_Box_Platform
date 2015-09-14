@@ -9,7 +9,7 @@
     <Grid Margin="-9,-10,2,-22">
         <Label x:Name="label" Content="点格棋博弈平台 " HorizontalAlignment="Left" Margin="37,35,0,0" VerticalAlignment="Top" Height="39" Width="161" FontSize="21.333"/>
         <Label x:Name="label1" Content="Beta" HorizontalAlignment="Left" Margin="191,35,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="程序源代码由GitHub托管：&#xD;&#xA;链接&#xD;&#xA;&#xD;&#xA;版本：Ver 0.1.0&#xD;&#xA;邮箱：761627608@qq.com&#xD;&#xA;2015 Issac-Pandroid&#xD;&#xA;版权所有&#xD;&#xA;" HorizontalAlignment="Left" Margin="37,94,0,0" VerticalAlignment="Top" Height="147" Width="226"/>
+        <Label x:Name="label2" Content="程序源代码由GitHub托管：&#xA;链接&#xA;&#xA;版本：Ver 0.9.1&#xA;邮箱：761627608@qq.com&#xA;2015 Issac-Pandroid&#xA;版权所有&#xA;" Margin="37,94,38,0" VerticalAlignment="Top" Height="147"/>
         <Button x:Name="button" Content="确定" HorizontalAlignment="Left" Margin="138,241,0,0" VerticalAlignment="Top" Width="102" Height="59" Background="White" BorderBrush="White" Click="button_Click"/>
 
     </Grid>

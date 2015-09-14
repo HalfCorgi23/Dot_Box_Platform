@@ -9,58 +9,38 @@
     <Window.Resources>
         <Color x:Key="Color_Main1">#FF0E9953</Color>
     </Window.Resources>
-    <Grid Margin="0" Width="686" Height="501" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="686" MinHeight="501" MaxWidth="686" MaxHeight="501">
+    <Grid MinWidth="686" MinHeight="501" MaxWidth="686" MaxHeight="501" RenderTransformOrigin="0.5,0.5" Margin="0,0,-8,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="291*"/>
-            <RowDefinition Height="139*"/>
+            <RowDefinition Height="303*"/>
+            <RowDefinition Height="127*"/>
             <RowDefinition Height="71*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="63*"/>
-            <ColumnDefinition Width="104*"/>
+            <ColumnDefinition Width="156*"/>
+            <ColumnDefinition Width="187*"/>
         </Grid.ColumnDefinitions>
-        <Border x:Name="border1" BorderThickness="0" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="686" RenderTransformOrigin="0.503,0.518" Margin="0,0,0,-14" Grid.ColumnSpan="2" Grid.Row="2">
-            <Border.Background>
-                <SolidColorBrush Color="{DynamicResource Color_Main1}"/>
-            </Border.Background>
-        </Border>
-        <Button x:Name="button" Content="玩家先手" HorizontalAlignment="Left" Margin="32,167,0,0" VerticalAlignment="Top" Width="186" Height="37" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Click="button_Click">
+        <Button x:Name="button" Content="玩家先手" HorizontalAlignment="Left" Margin="50,179,0,0" VerticalAlignment="Top" Width="186" Height="37" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Click="button_Click">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource Color_Main1}"/>
             </Button.Background>
         </Button>
-        <Label x:Name="label1" Content="开始游戏" HorizontalAlignment="Left" Margin="32,129,0,0" VerticalAlignment="Top" Foreground="#FF464646" FontSize="16" Height="30" Width="74" Panel.ZIndex="1"/>
-        <Button x:Name="button_Copy" Content="电脑先手" HorizontalAlignment="Left" Margin="32,209,0,0" VerticalAlignment="Top" Width="186" Height="32" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Click="button_Copy_Click">
+        <Label x:Name="label1" Content="开始游戏" HorizontalAlignment="Left" Margin="50,141,0,0" VerticalAlignment="Top" Foreground="#FF464646" FontSize="16" Height="30" Width="74" Panel.ZIndex="1"/>
+        <Button x:Name="button_Copy" Content="电脑先手" HorizontalAlignment="Left" Margin="50,241,0,0" VerticalAlignment="Top" Width="186" Height="32" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Click="button_Copy_Click">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource Color_Main1}"/>
             </Button.Background>
         </Button>
-        <Label x:Name="label1_Copy" Content="读取游戏" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Top" Foreground="#FF464646" FontSize="16" Height="30" Width="74" Panel.ZIndex="1" Grid.Row="1"/>
-        <Button x:Name="button_Copy1" Content="打开文件" HorizontalAlignment="Left" Margin="32,34,0,0" VerticalAlignment="Top" Width="186" Height="32" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Grid.Row="1">
+        <Label x:Name="label1_Copy" Content="读取游戏" HorizontalAlignment="Left" Margin="50,7,0,0" VerticalAlignment="Top" Foreground="#FF464646" FontSize="16" Height="30" Width="74" Panel.ZIndex="1" Grid.Row="1"/>
+        <Button x:Name="button_Copy1" Content="打开文件" HorizontalAlignment="Left" Margin="48,42,0,0" VerticalAlignment="Top" Width="186" Height="32" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Grid.Row="1" Click="button_Copy1_Click">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource Color_Main1}"/>
             </Button.Background>
         </Button>
-        <Button x:Name="button_Copy2" Content="游戏帮助" HorizontalAlignment="Left" Margin="67,19,0,0" VerticalAlignment="Top" Width="100" Height="32" Foreground="White" Panel.ZIndex="2" Grid.Column="1" BorderBrush="{x:Null}" Grid.Row="2">
-            <Button.Background>
-                <SolidColorBrush/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="button_Copy3" Content="关于程序" HorizontalAlignment="Left" Margin="184,19,0,0" VerticalAlignment="Top" Width="100" Height="32" Foreground="White" Panel.ZIndex="2" Grid.Column="1" Click="button_Copy3_Click" BorderBrush="{x:Null}" Grid.Row="2">
-            <Button.Background>
-                <SolidColorBrush/>
-            </Button.Background>
-        </Button>
-        <Label x:Name="label" Content="点格棋" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="4.488,1.64" Height="43" Width="100" FontSize="29.333" Foreground="#FF024B02" Margin="137,34,0,0"/>
-        <Button x:Name="button_Copy4" Content="退出游戏" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="32" Foreground="White" Panel.ZIndex="2" Margin="300,19,0,0" Grid.Column="1" Click="button_Copy4_Click" BorderBrush="{x:Null}" Grid.Row="2">
-            <Button.Background>
-                <SolidColorBrush/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="button1" Content="X" Grid.Column="1" HorizontalAlignment="Left" Margin="375,10,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="#FFFD2828" BorderBrush="{x:Null}" Foreground="White" Click="button1_Click"/>
-        <Button x:Name="button1_Copy" Content="_" Grid.Column="1" HorizontalAlignment="Left" Margin="337,10,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="#FFE8E8E8" BorderBrush="{x:Null}" Foreground="White" Click="button1_Copy_Click"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="106" Margin="30,13,0,0" VerticalAlignment="Top" Width="105" Source="source/icon_main.jpg"/>
-        <Label x:Name="label2" Content="版本 Beta 0.1.0" HorizontalAlignment="Left" Margin="140,78,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Width="184" Height="25">
+        <Label x:Name="label" Content="点格棋" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="4.488,1.64" Height="43" Width="100" FontSize="29.333" Foreground="#FF024B02" Margin="155,46,0,0"/>
+        <Button x:Name="button1" Content="X" Grid.Column="1" Margin="324,15,25,0" VerticalAlignment="Top" Height="25" Background="#FFFD2828" BorderBrush="{x:Null}" Foreground="White" Click="button1_Click"/>
+        <Button x:Name="button1_Copy" Content="_" Grid.Column="1" HorizontalAlignment="Left" Margin="294,15,0,0" VerticalAlignment="Top" Width="25" Height="25" Background="#FFE8E8E8" BorderBrush="{x:Null}" Foreground="White" Click="button1_Copy_Click"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="106" Margin="48,25,0,0" VerticalAlignment="Top" Width="105" Source="source/icon_main.jpg"/>
+        <Label x:Name="label2" Content="版本 Beta 0.9.1" HorizontalAlignment="Left" Margin="158,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Width="184" Height="25">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -70,8 +50,21 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="button2" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="382,109,0,0" VerticalAlignment="Top" Width="18" Height="18" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF4CA1B9" Click="button2_Click" Grid.Row="1"/>
-        <Button x:Name="button2_Copy" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="360,109,0,0" VerticalAlignment="Top" Width="18" Height="18" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FFD14181" Click="button2_Copy_Click" Grid.Row="1"/>
-        <Button x:Name="button2_Copy1" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="337,109,0,0" VerticalAlignment="Top" Width="18" Height="18" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF0E9953" Click="button2_Copy1_Click" Grid.Row="1"/>
+        <Button x:Name="button2" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="264,69,0,0" VerticalAlignment="Top" Width="18" Height="18" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF4CA1B9" Click="button2_Click" Grid.Row="1"/>
+        <Button x:Name="button2_Copy" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="310,69,0,0" VerticalAlignment="Top" Width="18" Height="18" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FFD14181" Click="button2_Copy_Click" Grid.Row="1"/>
+        <Button x:Name="button2_Copy1" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="287,69,0,0" VerticalAlignment="Top" Width="18" Height="18" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="#FF0E9953" Click="button2_Copy1_Click" Grid.Row="1" RenderTransformOrigin="-1.167,-1.111"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="280" Margin="53,57,0,0" VerticalAlignment="Top" Width="238" Grid.RowSpan="2">
+            <Label x:Name="label3_Copy" Content="上一次的的存档" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.35,0.12" FontSize="20" Height="36" Width="150" Foreground="#FF9C9B9B"/>
+            <Label x:Name="label4" Content="Label" HorizontalAlignment="Left" Margin="188,51,0,0" VerticalAlignment="Top" Width="40" Height="25"/>
+            <Label x:Name="label3" Content="最近的存档" HorizontalAlignment="Left" Margin="118,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.35,0.12" FontSize="20" Height="35" Width="110" Foreground="#FF706767"/>
+            <Label x:Name="label4_Copy" Content="Label" HorizontalAlignment="Left" Margin="188,138,0,0" VerticalAlignment="Top" Height="25" Width="40"/>
+            <Label x:Name="label4_Copy1" Content="Label" HorizontalAlignment="Left" Margin="188,168,0,0" VerticalAlignment="Top" Height="25" Width="40"/>
+            <Label x:Name="label4_Copy2" Content="Label" HorizontalAlignment="Left" Margin="188,198,0,0" VerticalAlignment="Top" Height="25" Width="40"/>
+        </Grid>
+        <Grid x:Name="Grid1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="-28,109,-31,-11" Grid.Row="1" Width="745" OpacityMask="#FF0E9953" Background="#FF0E9953" Grid.RowSpan="2">
+            <Button x:Name="button_Copy2" Content="游戏帮助" HorizontalAlignment="Right" Width="100" Foreground="White" Panel.ZIndex="2" BorderBrush="{x:Null}" Margin="0,33,398,36" Background="#00000000"/>
+            <Button x:Name="button_Copy3" Content="关于程序" HorizontalAlignment="Left" Margin="398,33,0,36" Width="100" Foreground="White" Panel.ZIndex="2" Click="button_Copy3_Click" BorderBrush="{x:Null}" Background="#00000000"/>
+            <Button x:Name="button_Copy4" Content="退出游戏" Foreground="White" Panel.ZIndex="2" Margin="551,33,95,36" Click="button_Copy4_Click" BorderBrush="{x:Null}" Background="#00000000"/>
+        </Grid>
     </Grid>
 </Window>

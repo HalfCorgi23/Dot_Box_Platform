@@ -57,7 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Search.cs" />
+    <Compile Include="Search2.cs" />
     <Compile Include="Searching.xaml.cs">
       <DependentUpon>Searching.xaml</DependentUpon>
     </Compile>

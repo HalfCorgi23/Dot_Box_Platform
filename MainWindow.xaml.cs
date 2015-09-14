@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,10 @@ namespace Dot_Box_Platform
                 colorset = Color.FromArgb(100, 14, 153, 83);
             }
             changeuicolor(colorset);
+            label4.Content = Settings1.Default.Current_Save1;
+            label4_Copy.Content = Settings1.Default.Current_Save1;
+            label4_Copy1.Content = Settings1.Default.Current_Save2;
+            label4_Copy2.Content = Settings1.Default.Current_Save3;
         }
 
         private void button_Copy4_Click(object sender, RoutedEventArgs e)
@@ -72,7 +77,7 @@ namespace Dot_Box_Platform
             button.Background = new SolidColorBrush(_color);
             button_Copy.Background = new SolidColorBrush(_color);
             button_Copy1.Background = new SolidColorBrush(_color);
-            border1.Background = new SolidColorBrush(_color);
+            Grid1.Background = new SolidColorBrush(_color);
             button_Copy2.Background = new SolidColorBrush(_color);
             button_Copy3.Background = new SolidColorBrush(_color);
             button_Copy4.Background = new SolidColorBrush(_color);
@@ -109,6 +114,18 @@ namespace Dot_Box_Platform
             wd.Owner = this;
             wd.ShowDialog();
         }
-        
+
+        private void button_Copy1_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "存盘文件|*.sav";
+            fd.ShowReadOnly = true;
+            fd.ShowDialog();
+            string path = fd.SafeFileName;
+            Window wd = new Window_Game(colorset, 1,path);
+            this.Visibility = System.Windows.Visibility.Hidden;
+            wd.Owner = this;
+            wd.ShowDialog();
+        }
     }
 }

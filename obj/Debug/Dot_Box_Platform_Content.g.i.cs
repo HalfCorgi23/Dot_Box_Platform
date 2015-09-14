@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("source/icon_main.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dot_box_dll.dll")]
 
 

@@ -20,7 +20,6 @@ C:\Users\76162\Documents\Visual Studio 2015\Projects\Dot_Box_Platform\obj\Debug\
 D:\Github\Dot_Box_Platform\bin\Debug\Dot_Box_Platform.exe.config
 D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.exe
 D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.pdb
-D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.csprojResolveAssemblyReference.cache
 D:\Github\Dot_Box_Platform\obj\Debug\MainWindow.g.cs
 D:\Github\Dot_Box_Platform\obj\Debug\Searching.g.cs
 D:\Github\Dot_Box_Platform\obj\Debug\Window_about.g.cs
@@ -37,3 +36,5 @@ D:\Github\Dot_Box_Platform\obj\Debug\Window_Game.baml
 D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.g.resources
 D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.Properties.Resources.resources
 D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.csproj.GenerateResource.Cache
+D:\Github\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.csprojResolveAssemblyReference.cache
+C:\Users\76162\Documents\Visual Studio 2015\Projects\Dot_Box_Platform\obj\Debug\Dot_Box_Platform.csprojResolveAssemblyReference.cache
